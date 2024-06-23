@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:calorie_calc/views/food_selection_view.dart';
+import 'package:calorie_calc/views/screens/food_selection_view.dart';
 import 'package:calorie_calc/controllers/food_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       
       create: (_) => FoodController(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Calorie Calculator',
         theme: ThemeData(
           primarySwatch: Colors.blue,
