@@ -54,9 +54,15 @@ class _FoodSelectionViewState extends State<FoodSelectionView> {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.asset(
-                          food.imagePath,
-                          fit: BoxFit.cover,
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16.0),
+                            topRight: Radius.circular(16.0),
+                          ),
+                          child: Image.asset(
+                            food.imagePath,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         if (isSelected)
                           Positioned(
@@ -138,22 +144,27 @@ class _FoodSelectionViewState extends State<FoodSelectionView> {
       builder: (context) {
         return AlertDialog(
           title: Text(food.name),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(food.imagePath, height: 100, width: 100),
-              SizedBox(height: 10),
-              Text('${food.caloriesPerUnit * 100} cal/100g'),
-              SizedBox(height: 10),
-              TextField(
-                controller: _quantityController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Enter weight in grams',
-                  border: OutlineInputBorder(),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.asset(food.imagePath, height: 100, width: 100),
                 ),
-              ),
-            ],
+                SizedBox(height: 10),
+                Text('${food.caloriesPerUnit * 100} cal/100g'),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _quantityController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Enter weight in grams',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -183,26 +194,30 @@ class _FoodSelectionViewState extends State<FoodSelectionView> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Selected Foods'),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: ListView(
-              children: controller.selectedFoods.entries.map((entry) {
-                final food = entry.key;
-                final quantity = entry.value;
-                final calories = food.caloriesPerUnit * quantity;
-                return ListTile(
-                  title: Text('${food.name} (${quantity.toStringAsFixed(2)}g)'),
-                  subtitle: Text('${calories.toStringAsFixed(2)} calories'),
-                  trailing: IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      _showEditQuantityDialog(
-                          context, controller, food, quantity);
-                    },
-                  ),
-                );
-              }).toList(),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              width: double.maxFinite,
+              child: ListView(
+                shrinkWrap: true,
+                children: controller.selectedFoods.entries.map((entry) {
+                  final food = entry.key;
+                  final quantity = entry.value;
+                  final calories = food.caloriesPerUnit * quantity;
+                  return ListTile(
+                    title:
+                        Text('${food.name} (${quantity.toStringAsFixed(2)}g)'),
+                    subtitle: Text('${calories.toStringAsFixed(2)} calories'),
+                    trailing: IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _showEditQuantityDialog(
+                            context, controller, food, quantity);
+                      },
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ),
           actions: [
@@ -238,7 +253,10 @@ class _FoodSelectionViewState extends State<FoodSelectionView> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(food.imagePath, height: 100, width: 100),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.asset(food.imagePath, height: 100, width: 100),
+                ),
                 SizedBox(height: 10),
                 Text('${food.caloriesPerUnit * 100} cal/100g'),
                 SizedBox(height: 10),
