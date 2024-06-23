@@ -13,13 +13,13 @@ Test assignment for Notfit internship
 Clone the project
 
 ```bash
-  git clone https://github.com/c-o-d-e-y-o-d-a/uniShare
+  git clone https://github.com/c-o-d-e-y-o-d-a/notfit_calorie_calculator
 ```
 
 Go to the project directory
 
 ```bash
-  cd uni_share
+  cd calorie_calc
 ```
 
 Install dependencies
